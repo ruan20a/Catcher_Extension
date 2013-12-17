@@ -1,0 +1,49 @@
+<html><!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Catcher</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="container">
+  <div>
+    <h1 id="user-profile-link" align="left"> Catcher <h1>
+    <a href="http://localhost:3000/signup">Sign Up</a>
+  </div>
+  <div id="testing-login">
+    <h2 id="login-intro">Let's Get Started</h2>
+    <form id="login-form">
+      <div id="error">
+      </div>
+      <input id="email" name="email" type="text" placeholder="email">
+      <br>
+      <input id="password" name="password" type="password" placeholder="password">
+      <br>
+      <input class= "submit btn btn-default" type="submit" value="Login">
+    </form>
+  </div>
+
+  <div id="post-item" class="hidden">
+    <div id="message"></div>
+    <form id="item-form">
+      <textarea id="title" name="title" type="text" placeholder="Item's Name" class="form-control"></textarea>
+      <textarea id="price" name="price" type="text" placeholder="Enter item's price" class="form-control"></textarea>
+      <textarea id="required_price" name="required_price" type="text" placeholder="Enter minimum required price i.e. 70.00" class="form-control"></textarea>
+      <textarea id="size" name="size" type="text" placeholder="Enter desired size" class="form-control"></textarea>
+      <textarea id="color" name="color" type="text" placeholder="Enter desired color" class="form-control"></textarea>
+      <input class="hidden" id= "current_price" name="current_price" type="text" placeholder="current_price">
+      <input class="hidden" id= "source" name="source" type="text" placeholder="source">
+      <input class="hidden" id= "user_id" name="user_id" type="text" placeholder="user_id">
+      <input class="submit btn btn-default" type="submit" value="Add">
+    </form>
+  </div>
+
+</div>
+
+  <script src="javascripts/jquery.js"></script>
+  <script src="javascripts/popup.js"></script>
+</body>
+</html>
+<!-- this let's us click to different links [Opens the link in a new window or tab]-->
+<base target="_blank" />

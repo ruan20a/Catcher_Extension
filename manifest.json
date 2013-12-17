@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+
+  "name": "bCatcher",
+  "description": "Don't let the right price slip by in Bloomingdales.",
+  "version": "0.0.0.1",
+
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["javascripts/jquery.js","javascripts/content.js"],
+      "run_at": "document_end"
+    }
+  ],
+
+  "minimum_chrome_version": "23",
+
+  "permissions": [
+    "http://localhost:3000/*",
+    "storage",
+    "http://*/*",
+    "tabs",
+    "https://*/*"
+  ],
+
+  "web_accessible_resources": [
+    "javascripts/jquery.min.map"
+  ],
+
+  "background": {
+     "scripts": ["/javascripts/background.js"]
+  },
+
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  }
+}
