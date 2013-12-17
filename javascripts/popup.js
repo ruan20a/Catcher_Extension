@@ -42,9 +42,9 @@ Item.login = function(e){
     crossDomain: true,
     data: newUser,
     dataType: "json",
-    // error: function(xhr, textStatus, error){
-    //   $('#error').text("Email and password do not match. Please try again");
-    // }
+    error: function(xhr, textStatus, error){
+      $('#error').text("Email and password do not match. Please try again");
+    }
   }).done(
     function(id){
       setChromeStorage(id)
@@ -58,11 +58,16 @@ Item.login = function(e){
 Item.addItems = function(e){
   e.preventDefault();
     var newItem = {
-      body: $('textarea[name=body]').val(),
+      title: $('textarea[name=title]').val(),
+      price: $('textarea[name=price]').val(),
+      required_price: $('textarea[name=required_price]').val(),
+      size: $('textarea[name=notes]').val(),
+      color: $('textarea[name=tag_list]').val(),
+      current_price: $('input[name=current_price]').val(),
+      image_url: $('input[name=image_url]').val(),
       source: $('input[name=source]').val(),
       user_id: $('input[name=user_id]').val(),
-      notes: $('textarea[name=notes]').val(),
-      tag_list: $('textarea[name=tag_list]').val()
+      notes: $('input[name=notes]').val(),
     };
 
     $.ajax({
@@ -139,22 +144,42 @@ Item.redirectPage = function(e){
 
 
 $( document ).ready(function(){
-  var Storage = chrome.storage.local;
-  Storage.get("user_key", function(result){
-    if (result.user_key > 0){
-      $('#testing-login').addClass('hidden');
-      $('a').addClass('hidden');
-      $('input[name=user_id]').val(result.user_key);
-      $('#post-item').removeClass('hidden');
-    }
-  })
+var Storage = chrome.storage.local;
+Storage.get("user_key", function(result){
+  if (result.user_key > 0){
+    $('#testing-login').addClass('hidden');
+    $('a').addClass('hidden');
+    $('input[name=user_id]').val(result.user_key);
+    $('#post-item').removeClass('hidden');
+  }
+})
   $('#login-form').on("submit", Item.login);
   $('#post-item').on("submit", Item.addItems);
-  $('textarea[name=body]').val("");
+  $('textarea[name=title]').val("");
+  $('textarea[name=price]').val("");
+  $('textarea[name=size]').val("");
+  $('textarea[name=color]').val("");
   $('input[name=source]').val("");
-  $('#user-profile-link').on("click", Item.redirectPage);
+  $('input[name=current_price]').val("");
+  $('input[name=image_url]').val("");
+  $('textarea[name=required_price]').val("");
+  $('textarea[name=notes]').val("");
+
   var bg = chrome.extension.getBackgroundPage();
-  $('textarea[name=body]').val(bg.title);
+
+  $('textarea[name=title]').val(bg.title);
+  $('textarea[name=price]').val(bg.price);
+  $('textarea[name=size]').val(bg.size);
+  $('textarea[name=color]').val(bg.color);
+  $('input[name=current_price]').val(bg.price);
   $('input[name=source]').val(bg.source);
+  $('input[name=image_url]').val(bg.image);
+
+  if(bg.image){
+    $('.itemImage').attr('src', bg.image)
+  }
+
+
+  $('#user-profile-link').on("click", Item.redirectPage);
   }
 );
