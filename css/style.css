@@ -2,6 +2,7 @@
   display: block;
   width: 100%;
   padding: 6px 12px;
+  margin: 5% 10% 5% 5%;
   font-size: 14px;
   line-height: 1.428571429;
   color: #555555;
@@ -48,7 +49,10 @@ fieldset[disabled] .form-control {
 
 textarea.form-control {
   height: auto;
+
 }
+
+
 
 .btn {
   display: inline-block;
@@ -130,17 +134,17 @@ fieldset[disabled] .btn {
 html {
   -webkit-appearance: none;
   width: 500px;
-  height: 350px;
+  height: 570px;
   font-family: Lato Arial sans-serif;
   margin-right: 20px;
   font-weight: bold;
 }
 
 body{
-  background-color: #90CA77;
-  color: #332118;
+  background-color: rgb(37, 37, 37);
   width: 500px;
   height: 400px;
+  color: rgb(191, 191, 191);;
   font-family: Lato, Arial, sans-serif;
   margin: 10px;
   border-radius: 2px;
@@ -216,7 +220,7 @@ textarea {
 
 .itemImage{
   margin-left: 10px;
-  margin-top: 20px;
+  margin-top: 3%;
   float: left;
   width: 200px;
   height: 250px;

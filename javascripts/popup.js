@@ -38,7 +38,7 @@ Item.login = function(e){
 
   $.ajax({
     type: "POST",
-    url: "http://localhost:3000/login.json",
+    url: "http://ancient-hollows-4145.herokuapp.com/login.json",
     crossDomain: true,
     data: newUser,
     dataType: "json",
@@ -57,41 +57,42 @@ Item.login = function(e){
 
 Item.addItems = function(e){
   e.preventDefault();
-    var newItem = {
-      title: $('textarea[name=title]').val(),
-      price: $('textarea[name=price]').val(),
-      required_price: $('textarea[name=required_price]').val(),
-      size: $('textarea[name=notes]').val(),
-      color: $('textarea[name=tag_list]').val(),
-      current_price: $('input[name=current_price]').val(),
-      image_url: $('input[name=image_url]').val(),
-      source: $('input[name=source]').val(),
-      user_id: $('input[name=user_id]').val(),
-      notes: $('input[name=notes]').val(),
-    };
+  var newItem = {
+    title: $('textarea[name=title]').val(),
+    price: $('textarea[name=price]').val(),
+    required_price: $('textarea[name=required_price]').val(),
+    size: $('textarea[name=notes]').val(),
+    color: $('textarea[name=tag_list]').val(),
+    current_price: $('input[name=current_price]').val(),
+    image_url: $('input[name=image_url]').val(),
+    source: $('input[name=source]').val(),
+    user_id: $('input[name=user_id]').val(),
+    notes: $('input[name=notes]').val(),
+  };
+  debugger;
 
-    $.ajax({
-      type: "POST",
-      url: "http://localhost:3000/items.json",
-      dataType: "json",
-      crossDomain: true,
-      data: {snippet: newSnippet}
-    }).done(
-      function(result){
-        if(result.user_id > 0){
-          $('#message').text("Item Saved!");
-        }
-        else{
-          $('#message').text("We could not save your item =(");
-        }
+  $.ajax({
+    type: "POST",
+    url: "http://ancient-hollows-4145.herokuapp.com/items.json",
+    dataType: "json",
+    crossDomain: true,
+    data: {item: newItem}
+  }).done(
+    function(result){
+      if(result.user_id > 0){
+        $('#message').text("Item Saved!");
       }
-    );
-
-    if ($('#message').text() === "Item Saved!")
-      e.preventDefault();
-    {
-      setTimeout(function(){window.close();},1500);
+      else{
+        $('#message').text("We could not save your item =(");
+      }
     }
+  );
+
+  if ($('#message').text() === "Item Saved!")
+    e.preventDefault();
+  {
+    setTimeout(function(){window.close();},1500);
+  }
 
 }
 
@@ -113,7 +114,7 @@ Item.redirectPage = function(e){
       user_id = "new";
     }
 
-    redirect_url = "http://localhost:3000/users/" + user_id;
+    redirect_url = "http://ancient-hollows-4145.herokuapp.com/users/" + user_id;
 
     var newUser = {
       email: result.email,
@@ -122,13 +123,13 @@ Item.redirectPage = function(e){
     // logging out first to prevent any sessions from crashing into each other.
     // post only redirects correctly correctly if we send with html, which is fine since we don't need it to return a code
     $.ajax({
-      url: "http://localhost:3000/logout",
+      url: "http://ancient-hollows-4145.herokuapp.com/logout",
       type: "GET",
       crossDomain: true,
       dataType:"json",
       complete: function(){
         $.ajax({
-          url: "http://localhost:3000/login",
+          url: "http://ancient-hollows-4145.herokuapp.com/login",
           type: "POST",
           dataType: "html",
           crossDomain: true,
@@ -143,7 +144,29 @@ Item.redirectPage = function(e){
 }
 
 
+Item.createDropdown = function(){
+  $.ajax({
+    type: "GET",
+    url: "http://ancient-hollows-4145.herokuapp.com/categories.json",
+    dataType: "json",
+    crossDomain: true,
+  }).done(
+    function(result){
+      console.log(result)
+      var arr = result;
+      var dropdown = $('<select>')
+        .attr('class', 'form-control')
+        .prependTo('#item-form');
+      $(arr).each(function(){
+        dropdown.append($('<option>').attr('value',this.id).text(this.name));
+      });
+    }
+  );
+}
+
+
 $( document ).ready(function(){
+
 var Storage = chrome.storage.local;
 Storage.get("user_key", function(result){
   if (result.user_key > 0){
@@ -153,6 +176,8 @@ Storage.get("user_key", function(result){
     $('#post-item').removeClass('hidden');
   }
 })
+
+  Item.createDropdown();
   $('#login-form').on("submit", Item.login);
   $('#post-item').on("submit", Item.addItems);
   $('textarea[name=title]').val("");
