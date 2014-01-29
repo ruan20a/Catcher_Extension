@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "bCatcher",
+  "name": "Catcher",
   "description": "Don't let the right price slip by in Bloomingdales.",
-  "version": "0.0.0.1",
+  "version": "0.0.0.7",
 
   "content_scripts": [
     {

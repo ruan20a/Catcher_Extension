@@ -52,8 +52,6 @@ textarea.form-control {
 
 }
 
-
-
 .btn {
   display: inline-block;
   padding: 6px 12px;
@@ -155,6 +153,11 @@ body{
   font-family: Lato, Arial, sans-serif;
 }
 
+a:link {color: hsla(34, 74%, 48%, 0.87)}      /* unvisited link */
+a:visited {color: hsla(199, 32%, 48%, 0.87);}  /* visited link */
+a:hover {color: hsla(34, 74%, 48%, 0.87)}  /* mouse over link */
+a:active {color: hsla(199, 32%, 48%, 0.87)}  /* selected link */
+
 h1 {
   margin:10px;
   font-family: Lato, Arial, sans-serif;
@@ -187,7 +190,6 @@ input {
 }
 
 #post-item{
-  display: inline;
   width: 100%;
 }
 
@@ -231,7 +233,6 @@ textarea {
   height:30px;
   width: 100px;
 }
-
 
 label{
   margin: 10px;

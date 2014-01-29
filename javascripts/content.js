@@ -2,9 +2,10 @@
 
 $(document).ready(function(){
     var run = function(){
+        var fromDOM = window.getSelection();
         var itemTitle = $('[itemprop=name]').text();
         var itemImage = $('[itemprop=image]').attr('src');
-        var itemSource = window.location.href;
+        var itemSource = fromDOM.baseNode.baseURI;
         var itemPrice = $("[itemprop=price]").text().replace(/[A-Za-z$-\s]/g, "")
         var itemSize = $('.size.selected').text();
         var itemColor = $("[id^='selectedColorName']").text();
@@ -14,8 +15,8 @@ $(document).ready(function(){
 
     run();
 
+    $('body').on("mouseover", run);
     $('body').on("click", run);
-
 });
 
 

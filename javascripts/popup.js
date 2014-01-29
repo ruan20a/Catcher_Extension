@@ -38,7 +38,7 @@ Item.login = function(e){
 
   $.ajax({
     type: "POST",
-    url: "http://ancient-hollows-4145.herokuapp.com/login.json",
+    url: "http://bcatcher.herokuapp.com/login.json",
     crossDomain: true,
     data: newUser,
     dataType: "json",
@@ -47,8 +47,8 @@ Item.login = function(e){
     }
   }).done(
     function(id){
-      setChromeStorage(id)
-      console.log(id)
+      setChromeStorage(id);
+      console.log(id);
       getChromeStorage();
     }
   )
@@ -65,15 +65,15 @@ Item.addItems = function(e){
     color: $('textarea[name=tag_list]').val(),
     current_price: $('input[name=current_price]').val(),
     image_url: $('input[name=image_url]').val(),
-    source: $('input[name=source]').val(),
+    source_url: $('input[name=source]').val(),
     user_id: $('input[name=user_id]').val(),
     notes: $('input[name=notes]').val(),
   };
-  debugger;
+
 
   $.ajax({
     type: "POST",
-    url: "http://ancient-hollows-4145.herokuapp.com/items.json",
+    url: "http://bcatcher.herokuapp.com/items.json",
     dataType: "json",
     crossDomain: true,
     data: {item: newItem}
@@ -114,7 +114,7 @@ Item.redirectPage = function(e){
       user_id = "new";
     }
 
-    redirect_url = "http://ancient-hollows-4145.herokuapp.com/users/" + user_id;
+    redirect_url = "http://bcatcher.herokuapp.com/users/" + user_id;
 
     var newUser = {
       email: result.email,
@@ -123,31 +123,31 @@ Item.redirectPage = function(e){
     // logging out first to prevent any sessions from crashing into each other.
     // post only redirects correctly correctly if we send with html, which is fine since we don't need it to return a code
     $.ajax({
-      url: "http://ancient-hollows-4145.herokuapp.com/logout",
+      url: "http://bcatcher.herokuapp.com/logout",
       type: "GET",
       crossDomain: true,
       dataType:"json",
       complete: function(){
         $.ajax({
-          url: "http://ancient-hollows-4145.herokuapp.com/login",
+          url: "http://bcatcher.herokuapp.com/login",
           type: "POST",
           dataType: "html",
           crossDomain: true,
           data: newUser,
-          complete: function(result){
-            window.open(redirect_url,"_blank")
+          success: function(result){
+            window.open(redirect_url,"_blank");
           }
-        })
+        });
       }
-    })
+    });
   });
-}
+};
 
 
 Item.createDropdown = function(){
   $.ajax({
     type: "GET",
-    url: "http://ancient-hollows-4145.herokuapp.com/categories.json",
+    url: "http://bcatcher.herokuapp.com/categories.json",
     dataType: "json",
     crossDomain: true,
   }).done(
